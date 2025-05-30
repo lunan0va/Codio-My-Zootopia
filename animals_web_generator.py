@@ -8,7 +8,7 @@ def load_data(file_path):
 
 
 def serialize_animal(animal_obj):
-  """Serialisiert ein einzelnes Tierobjekt zu HTML."""
+  """Serialisiert ein einzelnes Tierobjekt zu HTML mit strukturierter Liste."""
   name = animal_obj.get("name", "")
   characteristics = animal_obj.get("characteristics", {})
   taxonomy = animal_obj.get("taxonomy", {})
@@ -23,22 +23,24 @@ def serialize_animal(animal_obj):
 
   html = f'<li class="cards__item">'
   html += f'<div class="card__title">{name}</div>'
-  html += '<p class="card__text">'
+  html += '<div class="card__text"><ul class="card__list">'
+
   if diet:
-    html += f'<strong>Diet:</strong> {diet}<br/>'
+    html += f'<li class="card__detail"><strong>Diet:</strong> {diet}</li>'
   if location:
-    html += f'<strong>Location:</strong> {location}<br/>'
+    html += f'<li class="card__detail"><strong>Location:</strong> {location}</li>'
   if type_:
-    html += f'<strong>Type:</strong> {type_}<br/>'
+    html += f'<li class="card__detail"><strong>Type:</strong> {type_}</li>'
   if lifespan:
-    html += f'<strong>Lifespan:</strong> {lifespan}<br/>'
+    html += f'<li class="card__detail"><strong>Lifespan:</strong> {lifespan}</li>'
   if color:
-    html += f'<strong>Color:</strong> {color}<br/>'
+    html += f'<li class="card__detail"><strong>Color:</strong> {color}</li>'
   if top_speed:
-    html += f'<strong>Top Speed:</strong> {top_speed}<br/>'
+    html += f'<li class="card__detail"><strong>Top Speed:</strong> {top_speed}</li>'
   if scientific_name:
-    html += f'<strong>Scientific Name:</strong> {scientific_name}<br/>'
-  html += '</p></li>\n'
+    html += f'<li class="card__detail"><strong>Scientific Name:</strong> {scientific_name}</li>'
+
+  html += '</ul></div></li>\n'
   return html
 
 
