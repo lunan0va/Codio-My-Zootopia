@@ -8,25 +8,38 @@ def load_data(file_path):
 
 
 def serialize_animal(animal_obj):
-    """Serialisiert ein einzelnes Tierobjekt zu HTML."""
-    name = animal_obj.get("name", "")
-    characteristics = animal_obj.get("characteristics", {})
-    diet = characteristics.get("diet")
-    locations = animal_obj.get("locations", [])
-    location = locations[0] if locations else None
-    type_ = characteristics.get("type")
+  """Serialisiert ein einzelnes Tierobjekt zu HTML."""
+  name = animal_obj.get("name", "")
+  characteristics = animal_obj.get("characteristics", {})
+  taxonomy = animal_obj.get("taxonomy", {})
+  diet = characteristics.get("diet")
+  locations = animal_obj.get("locations", [])
+  location = ", ".join(locations) if locations else None
+  type_ = characteristics.get("type")
+  lifespan = characteristics.get("lifespan")
+  color = characteristics.get("color")
+  top_speed = characteristics.get("top_speed")
+  scientific_name = taxonomy.get("scientific_name")
 
-    html = f'<li class="cards__item">'
-    html += f'<div class="card__title">{name}</div>'
-    html += '<p class="card__text">'
-    if diet:
-        html += f'<strong>Diet:</strong> {diet}<br/>'
-    if location:
-        html += f'<strong>Location:</strong> {location}<br/>'
-    if type_:
-        html += f'<strong>Type:</strong> {type_}<br/>'
-    html += '</p></li>\n'
-    return html
+  html = f'<li class="cards__item">'
+  html += f'<div class="card__title">{name}</div>'
+  html += '<p class="card__text">'
+  if diet:
+    html += f'<strong>Diet:</strong> {diet}<br/>'
+  if location:
+    html += f'<strong>Location:</strong> {location}<br/>'
+  if type_:
+    html += f'<strong>Type:</strong> {type_}<br/>'
+  if lifespan:
+    html += f'<strong>Lifespan:</strong> {lifespan}<br/>'
+  if color:
+    html += f'<strong>Color:</strong> {color}<br/>'
+  if top_speed:
+    html += f'<strong>Top Speed:</strong> {top_speed}<br/>'
+  if scientific_name:
+    html += f'<strong>Scientific Name:</strong> {scientific_name}<br/>'
+  html += '</p></li>\n'
+  return html
 
 
 def generate_animal_cards(data):
