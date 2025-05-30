@@ -2,7 +2,7 @@ import json
 
 def load_data(file_path):
   """ Load a JSON file """
-  with open(file_path, "r") as handle:
+  with open(file_path, "r", encoding="utf-8") as handle:
     return json.load(handle)
 
 
@@ -10,21 +10,20 @@ def generate_animal_info(data):
   output = ''
   for animal in data:
     name = animal.get("name")
-    diet = animal.get("characteristics", {}).get("diet")
+    characteristics = animal.get("characteristics", {})
+    diet = characteristics.get("diet")
     locations = animal.get("locations", [])
     location = locations[0] if locations else None
-    type_ = animal.get("characteristics", {}).get("type")
+    type_ = characteristics.get("type")
 
-    output += '<li class="cards__item">\n'
-    if name:
-      output += f"Name: {name}<br/>\n"
+    output += f'<li class="cards__item"><div class="card__title">{name}</div><p class="card__text">'
     if diet:
-      output += f"Diet: {diet}<br/>\n"
+      output += f'<strong>Diet:</strong> {diet}<br/>'
     if location:
-      output += f"Location: {location}<br/>\n"
+      output += f'<strong>Location:</strong> {location}<br/>'
     if type_:
-      output += f"Type: {type_}<br/>\n"
-    output += '</li>\n\n'
+      output += f'<strong>Type:</strong> {type_}<br/>'
+    output += '</p></li>'
   return output
 
 
