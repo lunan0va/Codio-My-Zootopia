@@ -5,20 +5,40 @@ def load_data(file_path):
   with open(file_path, "r") as handle:
     return json.load(handle)
 
-animals_data = load_data('animals_data.json')
 
-for animal in animals_data:
-  print(f"Name: {animal.get('name')}")
+def generate_animal_info(data):
+  output = ''
+  for animal in data:
+    name = animal.get("name")
+    diet = animal.get("characteristics", {}).get("diet")
+    locations = animal.get("locations", [])
+    location = locations[0] if locations else None
+    type_ = animal.get("characteristics", {}).get("type")
 
-  characteristics = animal.get("characteristics", {})
+    if name:
+      output += f"Name: {name}\n"
+    if diet:
+      output += f"Diet: {diet}\n"
+    if location:
+      output += f"Location: {location}\n"
+    if type_:
+      output += f"Type: {type_}\n"
 
-  if "diet" in characteristics:
-    print(f"Diet: {characteristics['diet']}")
+    output += "\n"
+  return output
 
-  if "locations" in animal and animal["locations"]:
-    print(f"Location: {animal['locations'][0]}")
+def create_html(data, template_path, output_path):
 
-  if "type" in characteristics:
-    print(f"Type: {characteristics['type']}")
+  with open(template_path, "r") as f:
+    html_template = f.read()
 
-  print()
+  animal_info = generate_animal_info(data)
+  final_html = html_template.replace("__REPLACE_ANIMALS_INFO__", animal_info)
+
+  with open(output_path, "w") as f:
+    f.write(final_html)
+
+
+if __name__ == "__main__":
+  animals_data = load_data("animals_data.json")
+  create_html(animals_data, "animals_template.html", "animals.html")
