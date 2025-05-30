@@ -15,20 +15,20 @@ def generate_animal_info(data):
     location = locations[0] if locations else None
     type_ = animal.get("characteristics", {}).get("type")
 
+    output += '<li class="cards__item">\n'
     if name:
-      output += f"Name: {name}\n"
+      output += f"Name: {name}<br/>\n"
     if diet:
-      output += f"Diet: {diet}\n"
+      output += f"Diet: {diet}<br/>\n"
     if location:
-      output += f"Location: {location}\n"
+      output += f"Location: {location}<br/>\n"
     if type_:
-      output += f"Type: {type_}\n"
-
-    output += "\n"
+      output += f"Type: {type_}<br/>\n"
+    output += '</li>\n\n'
   return output
 
-def create_html(data, template_path, output_path):
 
+def create_html(data, template_path, output_path):
   with open(template_path, "r") as f:
     html_template = f.read()
 
